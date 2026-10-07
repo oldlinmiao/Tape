@@ -62,41 +62,41 @@
 </head>
 <body>
 <div id="wrap">
-  <h1>TAPE ECHO<small>磁带回响 · 一盘磁带，让过去的自己替你开门、当梯子</small><button id="btnSet">设置</button></h1>
+  <h1><span data-txt="title">TAPE ECHO</span><small data-txt="subtitle">磁带回响 · 一盘磁带，让过去的自己替你开门、当梯子</small><button id="btnSet" data-txt="setBtn">设置</button></h1>
   <div id="stage">
     <canvas id="cv" width="960" height="540"></canvas>
     <div id="settings" hidden>
       <div class="panel">
-        <h2>设置</h2>
-        <p class="lead">设置会自动保存 · 按 Esc 或点「继续游戏」关闭</p>
+        <h2 data-txt="settings.title">设置</h2>
+        <p class="lead" data-txt="settings.lead">设置会自动保存 · 按 Esc 或点「继续游戏」关闭</p>
 
-        <p class="lead">调音量时音乐不会停，直接听效果 · 音效松手后会响一声试听</p>
+        <p class="lead" data-txt="settings.audioLead">调音量时音乐不会停，直接听效果 · 音效松手后会响一声试听</p>
         <div class="row">
-          <span class="lab">音乐音量<span class="sub">程序生成的背景循环</span></span>
+          <span class="lab"><span data-txt="settings.music">音乐音量</span><span class="sub" data-txt="settings.musicSub">程序生成的背景循环</span></span>
           <input type="range" min="0" max="100" step="1" data-k="musicVol"><span class="val" data-v="musicVol"></span>
         </div>
         <div class="row">
-          <span class="lab">音效音量<span class="sub">跳跃、开门、投掷命中</span></span>
+          <span class="lab"><span data-txt="settings.sfx">音效音量</span><span class="sub" data-txt="settings.sfxSub">跳跃、开门、投掷命中</span></span>
           <input type="range" min="0" max="100" step="1" data-k="sfxVol"><span class="val" data-v="sfxVol"></span>
         </div>
         <div class="row">
-          <span class="lab">画面震动<span class="sub">失败、砸中靶心时的抖动</span></span>
+          <span class="lab"><span data-txt="settings.shake">画面震动</span><span class="sub" data-txt="settings.shakeSub">失败、砸中靶心时的抖动</span></span>
           <input type="checkbox" data-k="shake">
         </div>
         <div class="row">
-          <span class="lab">投掷轨迹预测<span class="sub">举着箱子时显示抛物线，关掉会更难</span></span>
+          <span class="lab"><span data-txt="settings.aim">投掷轨迹预测</span><span class="sub" data-txt="settings.aimSub">举着箱子时显示抛物线，关掉会更难</span></span>
           <input type="checkbox" data-k="aim">
         </div>
         <div class="row">
-          <span class="lab">录制起点标记<span class="sub">标出「过去的你」会从哪里出现</span></span>
+          <span class="lab"><span data-txt="settings.marker">录制起点标记</span><span class="sub" data-txt="settings.markerSub">标出「过去的你」会从哪里出现</span></span>
           <input type="checkbox" data-k="marker">
         </div>
         <div class="row">
-          <span class="lab">录像带滤镜<span class="sub">录制时的红闪、回放时的扫描线</span></span>
+          <span class="lab"><span data-txt="settings.crt">录像带滤镜</span><span class="sub" data-txt="settings.crtSub">录制时的红闪、回放时的扫描线</span></span>
           <input type="checkbox" data-k="crt">
         </div>
         <div class="row">
-          <span class="lab">录制时长<span class="sub">每个回声存活同样长的时间；改了会清空磁带</span></span>
+          <span class="lab"><span data-txt="settings.rec">录制时长</span><span class="sub" data-txt="settings.recSub">每个回声存活同样长的时间；改了会清空磁带</span></span>
           <select data-k="recSec">
             <option value="3">3 秒</option>
             <option value="5">5 秒</option>
@@ -105,26 +105,40 @@
           </select>
         </div>
         <div class="row">
-          <span class="lab">跳到关卡</span>
+          <span class="lab"><span data-txt="settings.tapePos">磁带面板位置</span><span class="sub" data-txt="settings.tapePosSub">挡住画面时挪走；也可以直接用鼠标拖动面板（会自动存住）</span></span>
+          <select data-k="tapeAnchor" id="s-tapeAnchor">
+            <option value="bottom-left">左下</option>
+            <option value="bottom-right">右下</option>
+            <option value="top-left">左上</option>
+            <option value="top-right">右上</option>
+            <option value="top-center">顶部居中</option>
+            <option value="bottom-center">底部居中</option>
+          </select>
+        </div>
+        <div class="btns" style="margin:6px 0 0">
+          <button id="s-tapeReset" data-txt="settings.tapeReset">复位面板</button>
+        </div>
+        <div class="row">
+          <span class="lab" data-txt="settings.jump">跳到关卡</span>
           <select id="s-lv"></select>
         </div>
 
-        <div class="sect">自定义关卡</div>
-        <p class="lead">把编辑器里「复制 JSON」的内容粘进来 → 载入。会存进浏览器，下次打开还是你的关卡。</p>
+        <div class="sect" data-txt="settings.customSect">自定义关卡</div>
+        <p class="lead" data-txt="settings.customLead">把编辑器里「复制 JSON」的内容粘进来 → 载入。会存进浏览器，下次打开还是你的关卡。</p>
         <textarea id="s-lvjson" spellcheck="false" placeholder='[{"name":"我的关卡", ...}]'></textarea>
         <div class="btns" style="margin-top:8px">
-          <button id="s-lvload" class="primary">载入</button>
-          <button id="s-lvexport">复制当前</button>
-          <button id="s-lvclear">回到内置</button>
+          <button id="s-lvload" class="primary" data-txt="settings.load">载入</button>
+          <button id="s-lvexport" data-txt="settings.export">复制当前</button>
+          <button id="s-lvclear" data-txt="settings.builtin">回到内置</button>
         </div>
 
-        <div class="sect">按键设置</div>
-        <p class="lead">点右边的键位，再按你想用的键（Esc 取消）</p>
+        <div class="sect" data-txt="settings.keySect">按键设置</div>
+        <p class="lead" data-txt="settings.keyLead">点右边的键位，再按你想用的键（Esc 取消）</p>
         <div id="keyrows"></div>
 
         <div class="btns">
-          <button id="s-default">恢复默认</button>
-          <button class="primary" id="s-close">继续游戏</button>
+          <button id="s-default" data-txt="settings.defaultBtn">恢复默认</button>
+          <button class="primary" id="s-close" data-txt="settings.closeBtn">继续游戏</button>
         </div>
       </div>
     </div>
@@ -140,13 +154,7 @@
     <button class="warn" data-a="clear">倒带 <b data-kb="clear">Q</b></button>
     <button class="warn" data-a="reset">重来 <b data-kb="reset">R</b></button>
   </div>
-  <div id="tip">
-    <b>一盘磁带：</b>按 <b>E</b> 开录（再按一次提前结束）→ 再按 <b>E</b> 回放，过去的你就会重演那段动作。
-    回放完磁带不会消失，<b>可以再录新的一段</b> —— 已经放出来的回声会一直留在场上，所以能叠出 <b>最多 3 个回声</b>。<br>
-    <b>叠人梯：</b>回声是实体。站到回声头上再录一段「站着不动」，新回声就会<b>出现在你头顶那个位置</b> —— 三层叠起来才够高。<br>
-    <b>关键组合：</b>录制会真实改变世界（扔出去的箱子不会自己回来）。先录好，按 <b>R</b> 重置世界（磁带保留、回声清空），再按 <b>E</b> 回放。<br>
-    <b>Q</b> = 倒带：只清空磁带，<b>回声留在场上</b>（磁带已空时再按一次 Q = 清掉所有回声）。<b>R</b> = 重来本关：世界复位，磁带保留、回声清空。
-  </div>
+  <div id="tip"></div>
 </div>
 <script>
 "use strict";
@@ -159,7 +167,31 @@
 
 const cv  = document.getElementById('cv');
 const ctx = cv.getContext('2d');
-const VW = 960, VH = 540;
+const VW = 960, VH = 540;     // 逻辑坐标：所有绘制都按这俩数算，和屏幕大小无关
+
+// 画布按屏幕实际像素重新开缓冲，否则 960×540 被拉到全屏宽 → 字是糊的。
+// 做法：backing store = CSS 宽 × 设备像素比，再用 setTransform 把逻辑坐标放大过去，
+// 绘制代码一行都不用改。窗口变、拖到另一块屏幕都会重算。
+let viewScale = 1, lastFitW = 0, lastDpr = 0;
+function fitCanvas(){
+  try{
+    const dpr  = Math.min(3, (typeof devicePixelRatio === 'number' && devicePixelRatio) || 1);
+    const cssW = cv.clientWidth || VW;
+    if(cssW === lastFitW && dpr === lastDpr) return;
+    lastFitW = cssW; lastDpr = dpr;
+    const w = Math.max(1, Math.round(cssW * dpr));
+    const h = Math.max(1, Math.round(cssW * dpr * VH / VW));
+    cv.width = w; cv.height = h;
+    viewScale = w / VW;
+    ctx.setTransform(viewScale, 0, 0, viewScale, 0, 0);
+    ctx.textBaseline = 'alphabetic';        // 各浏览器默认一致，避免基线漂移
+  }catch(e){ viewScale = 1; }
+}
+try{
+  fitCanvas();
+  if(typeof ResizeObserver !== 'undefined') new ResizeObserver(fitCanvas).observe(cv);
+  addEventListener('resize', fitCanvas);
+}catch(e){}
 
 const TS = 1/60;              // 逻辑步长
 let   REC_FRAMES = 300;       // 5 秒 = 300 帧（设置里可改）
@@ -178,6 +210,143 @@ const THROW_VY  = -640;
 const COYOTE    = 0.10;
 const JBUF      = 0.12;
 const MAX_ECHO  = 3;
+
+/* =========================================================================
+   皮肤 SKIN —— 页面文案 / 音乐 / 音效全都集中在这一块
+   编辑器（editor.html）的「页面设计」「音乐与音效」两页改的就是它，
+   它会整块替换 SKIN-BEGIN ~ SKIN-END 之间的内容，所以别改这两行注释。
+   ========================================================================= */
+/* ==== SKIN-BEGIN ==== */
+const SKIN = {
+  title:    'TAPE ECHO',
+  subtitle: '磁带回响 · 一盘磁带，让过去的自己替你开门、当梯子',
+  setBtn:   '设置',
+  tip: '<b>一盘磁带：</b>按 <b>E</b> 开录（再按一次提前结束）→ 再按 <b>E</b> 回放，过去的你就会重演那段动作。'
+     + '回放完磁带不会消失，<b>可以再录新的一段</b> —— 已经放出来的回声会一直留在场上，所以能叠出 <b>最多 3 个回声</b>。<br>'
+     + '<b>叠人梯：</b>回声是实体。站到回声头上再录一段「站着不动」，新回声就会<b>出现在你头顶那个位置</b> —— 三层叠起来才够高。<br>'
+     + '<b>关键组合：</b>录制会真实改变世界（扔出去的箱子不会自己回来）。先录好，按 <b>R</b> 重置世界（磁带保留、回声清空），再按 <b>E</b> 回放。<br>'
+     + '<b>Q</b> = 倒带：只清空磁带，<b>回声留在场上</b>（磁带已空时再按一次 Q = 清掉所有回声）。<b>R</b> = 重来本关：世界复位，磁带保留、回声清空。',
+  hud: {
+    tape: '磁带', echo: '回声', level: '关卡',
+    rec: '● REC', ready: '▶ READY', empty: '○ EMPTY',
+    stRec: '录制中', stReady: '就绪', stEmpty: '空磁带',
+    remain: '剩余', recorded: '录了',
+    tapeKeys: 'E 录/放 · Q 倒带 · R 重来',
+    keyBar: 'A/D 移动 · 空格 跳 · Shift 加速 · F 举起 · G 扔 · E 录/放 · Q 倒带 · R 重来 · Esc 设置',
+    // 磁带面板停靠在哪：bottom-left / bottom-right / top-left / top-right / top-center / bottom-center / custom
+    tapeAnchor: 'bottom-left', tapeOX: 16, tapeOY: 16
+  },
+  clear: { title:'关卡完成', next:'按 E 进入下一关', last:'你通关了全部关卡 · 按 E 从头再来' },
+  msg: {
+    rec: '● REC  录制中…再按 E 可提前结束',
+    ready: '磁带就绪 · 按 E 回放（回声会一直留在场上）',
+    play: '▶ PLAY  回声 {n}/{max}',
+    die: '失败 · 回到起点（磁带保留）',
+    clearEcho: '场上回声已清空',
+    emptyBoth: '磁带和回声都是空的',
+    rewind: '磁带已倒带 · 回声保留（再按 E 可录新的一段）',
+    reset: '世界重置 · 磁带保留，回声清空',
+    loaded: '已载入 {n} 个自定义关卡',
+    badLevels: '关卡数据为空',
+    badJson: 'JSON 解析失败，检查一下括号和逗号',
+    exportOk: '已复制当前 {n} 关的 JSON',
+    exportFail: '已填进文本框，请手动复制',
+    builtinOk: '已回到内置 {n} 关',
+    tapeMoved: '磁带面板位置已记住',
+    tapeReset: '磁带面板已复位'
+  },
+  settings: {
+    title: '设置',
+    lead: '设置会自动保存 · 按 Esc 或点「继续游戏」关闭',
+    audioLead: '调音量时音乐不会停，直接听效果 · 音效松手后会响一声试听',
+    music: '音乐音量', musicSub: '程序生成的背景循环',
+    sfx: '音效音量', sfxSub: '跳跃、开门、投掷命中',
+    shake: '画面震动', shakeSub: '失败、砸中靶心时的抖动',
+    aim: '投掷轨迹预测', aimSub: '举着箱子时显示抛物线，关掉会更难',
+    marker: '录制起点标记', markerSub: '标出「过去的你」会从哪里出现',
+    crt: '录像带滤镜', crtSub: '录制时的红闪、回放时的扫描线',
+    rec: '录制时长', recSub: '每个回声存活同样长的时间；改了会清空磁带',
+    jump: '跳到关卡',
+    customSect: '自定义关卡',
+    customLead: '把编辑器里「复制 JSON」的内容粘进来 → 载入。会存进浏览器，下次打开还是你的关卡。',
+    load: '载入', export: '复制当前', builtin: '回到内置',
+    keySect: '按键设置', keyLead: '点右边的键位，再按你想用的键（Esc 取消）',
+    defaultBtn: '恢复默认', closeBtn: '继续游戏',
+    tapePos: '磁带面板位置', tapePosSub: '挡住画面时挪走；也可以直接用鼠标拖动面板（会自动存住）',
+    tapeReset: '复位面板'
+  },
+  music: {
+    preset: 'default', step: 0.26, vol: 45,
+    arp:  [440,523.25,659.25,523.25, 392,523.25,659.25,880, 440,523.25,659.25,587.33, 349.23,440,659.25,880],
+    bass: [110,110,87.31,87.31, 130.81,130.81,98,98]
+  },
+  sfx: {
+    vol: 70,
+    defs: {
+      jump:      { freq:520, dur:0.07, type:'square',   gain:0.035 },
+      land:      { freq:200, dur:0.06, type:'sine',     gain:0.04  },
+      grab:      { freq:330, dur:0.06, type:'sine',     gain:0.04  },
+      throw:     { freq:660, dur:0.09, type:'sawtooth', gain:0.05  },
+      hit:       { freq:880, dur:0.12, type:'square',   gain:0.06  },
+      door:      { freq:440, dur:0.10, type:'triangle', gain:0.045 },
+      recStart:  { freq:760, dur:0.06, type:'square',   gain:0.05  },
+      recEnd:    { freq:600, dur:0.08, type:'square',   gain:0.05  },
+      play:      { freq:300, dur:0.12, type:'sawtooth', gain:0.05  },
+      clearEcho: { freq:150, dur:0.18, type:'sine',     gain:0.05  },
+      rewind:    { freq:180, dur:0.14, type:'sine',     gain:0.05  },
+      reset:     { freq:240, dur:0.12, type:'sine',     gain:0.05  },
+      die:       { freq:120, dur:0.20, type:'sawtooth', gain:0.06  },
+      win:       [ { freq:660, dur:0.10, type:'square', gain:0.06 },
+                   { freq:880, dur:0.16, type:'square', gain:0.06 } ]
+    }
+  }
+};
+/* ==== SKIN-END ==== */
+
+/* ---------------------------- 皮肤：把 SKIN 铺到页面上 ---------------------------- */
+const numOr = (v, d) => (typeof v === 'number' && isFinite(v)) ? v : d;
+function skinGet(path){                       // 'settings.title' -> SKIN.settings.title
+  let v = SKIN;
+  for(const k of String(path).split('.')){ if(v == null) return null; v = v[k]; }
+  return (typeof v === 'string' || typeof v === 'number') ? String(v) : null;
+}
+function applySkin(){
+  try{
+    document.querySelectorAll('[data-txt]').forEach(el=>{
+      const v = skinGet(el.dataset.txt);
+      if(v != null) el.textContent = v;
+    });
+  }catch(e){}
+  const tipEl = document.getElementById('tip');
+  if(tipEl) tipEl.innerHTML = SKIN.tip || '';
+  try{ document.title = (SKIN.title || 'TAPE ECHO') + ' · 磁带回响'; }catch(e){}
+  Music.ARP    = SKIN.music.arp  || Music.ARP;
+  Music.BASS   = SKIN.music.bass || Music.BASS;
+  Music.stepLen = numOr(SKIN.music.step, 0.26);
+}
+function mergeSkin(target, patch){             // 编辑器推送过来的可能只是局部改动
+  for(const k in patch){
+    const v = patch[k];
+    if(v && typeof v === 'object' && !Array.isArray(v) && target[k] && typeof target[k] === 'object' && !Array.isArray(target[k])){
+      mergeSkin(target[k], v);
+    } else target[k] = v;
+  }
+  return target;
+}
+function msg(key, vars){                       // 'play' + {n:2,max:3} -> "▶ PLAY  回声 2/3"
+  let s = (SKIN.msg && SKIN.msg[key]) || '';
+  for(const k in (vars || {})) s = s.split('{' + k + '}').join(vars[k]);
+  return s;
+}
+function sfx(name){                            // 播一个命名音效（参数全在 SKIN.sfx.defs 里）
+  const d = SKIN.sfx.defs[name];
+  if(!d) return;
+  const list = Array.isArray(d) ? d : [d];
+  list.forEach((s, i)=>{
+    const fire = ()=> beep(s.freq, s.dur, s.type, s.gain);
+    i === 0 ? fire() : setTimeout(fire, i * 110);
+  });
+}
 
 /* ---------------------------- 关卡数据 ---------------------------- */
 const LEVELS = [
@@ -316,7 +485,7 @@ function loadLevelsFromHash(){
     const data = JSON.parse(b64decode(m[1]));
     const list = Array.isArray(data) ? data : (data.levels || [data]);
     if(!applyCustomLevels(list, 0, false)) return false;
-    flashMsg = { text:'已载入 ' + LEVELS.length + ' 个自定义关卡', t:2.4 };
+    flashMsg = { text: msg('loaded', { n:LEVELS.length }), t:2.4 };
     return true;
   }catch(e){ return false; }
 }
@@ -439,7 +608,14 @@ function refreshPadLabels(){
 }
 
 /* ---------------------------- 设置 ---------------------------- */
-const DEFAULT_SETTINGS = { shake:true, aim:true, marker:true, crt:true, recSec:5, musicVol:45, sfxVol:70 };
+const DEFAULT_SETTINGS = { shake:true, aim:true, marker:true, crt:true, recSec:5,
+  musicVol: numOr(SKIN.music && SKIN.music.vol, 45),      // 默认音量也由编辑器的「音乐与音效」页决定
+  sfxVol:   numOr(SKIN.sfx   && SKIN.sfx.vol,   70),
+  // 磁带面板停靠位置：默认跟 SKIN 走（编辑器里能改），拖动后会变成 custom + 具体坐标
+  tapeAnchor: (SKIN.hud && typeof SKIN.hud.tapeAnchor === 'string' && SKIN.hud.tapeAnchor) || 'bottom-left',
+  tapeOX: numOr(SKIN.hud && SKIN.hud.tapeOX, 16),
+  tapeOY: numOr(SKIN.hud && SKIN.hud.tapeOY, 16),
+  tapeX: null, tapeY: null };
 let settings = Object.assign({}, DEFAULT_SETTINGS);
 let paused = false;
 try{
@@ -483,10 +659,21 @@ function renderKeys(){
   }
 }
 function syncSettingsUI(){
+  const ta = document.getElementById('s-tapeAnchor');   // 「自定义」这个选项是拖动后才有的
+  if(ta){
+    const v = String(settings.tapeAnchor || 'bottom-left');
+    let has = false;
+    for(const o of ta.options) if(o.value === v) has = true;
+    if(!has){
+      const o = document.createElement('option');
+      o.value = v; o.textContent = (v === 'custom') ? '自定义（拖动过）' : v;
+      ta.appendChild(o);
+    }
+  }
   for(const el of settingsEl.querySelectorAll('[data-k]')){
     const k = el.dataset.k;
     if(el.type === 'checkbox') el.checked = !!settings[k];
-    else el.value = String(settings[k]);
+    else el.value = String(settings[k] == null ? '' : settings[k]);
   }
   for(const el of settingsEl.querySelectorAll('[data-v]')) el.textContent = String(Math.round(settings[el.dataset.v]));
   const lv = document.getElementById('s-lv');
@@ -520,21 +707,21 @@ if(btnLvLoad) btnLvLoad.addEventListener('click', ()=>{
     const list = JSON.parse(lvJsonEl.value);
     const arr = Array.isArray(list) ? list : (list.levels || [list]);
     if(applyCustomLevels(arr, 0, true)){
-      flashMsg = { text:'已载入 ' + LEVELS.length + ' 个自定义关卡', t:2.6 };
+      flashMsg = { text: msg('loaded', { n:LEVELS.length }), t:2.6 };
       closeSettings();
-    }else flashMsg = { text:'关卡数据为空', t:1.6 };
-  }catch(e){ flashMsg = { text:'JSON 解析失败，检查一下括号和逗号', t:2.6 }; }
+    }else flashMsg = { text: msg('badLevels'), t:1.6 };
+  }catch(e){ flashMsg = { text: msg('badJson'), t:2.6 }; }
 });
 const btnLvExport = document.getElementById('s-lvexport');
 if(btnLvExport) btnLvExport.addEventListener('click', ()=>{
   lvJsonEl.value = JSON.stringify(LEVELS);
-  flashMsg = { text: copyText(lvJsonEl) ? '已复制当前 ' + LEVELS.length + ' 关的 JSON' : '已填进文本框，请手动复制', t:2.2 };
+  flashMsg = { text: copyText(lvJsonEl) ? msg('exportOk', { n:LEVELS.length }) : msg('exportFail'), t:2.2 };
 });
 const btnLvClear = document.getElementById('s-lvclear');
 if(btnLvClear) btnLvClear.addEventListener('click', ()=>{
   restoreBuiltinLevels();
   if(lvJsonEl) lvJsonEl.value = '';
-  flashMsg = { text:'已回到内置 ' + LEVELS.length + ' 关', t:2.2 };
+  flashMsg = { text: msg('builtinOk', { n:LEVELS.length }), t:2.2 };
   closeSettings();
 });
 
@@ -545,10 +732,22 @@ if(btnDefault) btnDefault.addEventListener('click', ()=>{
   saveBinds(); refreshPadLabels();
   applyRecLength(); clearAllTapes(); saveSettings(); syncSettingsUI();
 });
+const btnTapeReset = document.getElementById('s-tapeReset');
+if(btnTapeReset) btnTapeReset.addEventListener('click', ()=>{
+  settings.tapeAnchor = DEFAULT_SETTINGS.tapeAnchor;
+  settings.tapeOX = DEFAULT_SETTINGS.tapeOX;
+  settings.tapeOY = DEFAULT_SETTINGS.tapeOY;
+  settings.tapeX = null; settings.tapeY = null;
+  saveSettings(); syncSettingsUI();
+  flashMsg = { text: msg('tapeReset'), t:1.2 };
+});
 function onSettingInput(e){
   const t = e.target, k = t.dataset.k;
   if(!k) return;
-  settings[k] = (t.type === 'checkbox') ? t.checked : +t.value;
+  if(t.type === 'checkbox') settings[k] = t.checked;
+  else if(isNaN(+t.value)) settings[k] = t.value;          // 文字型选项（比如停靠位置）
+  else settings[k] = +t.value;
+  if(k === 'tapeAnchor' && settings[k] !== 'custom'){ settings.tapeX = null; settings.tapeY = null; }
   if(k === 'recSec'){ applyRecLength(); clearAllTapes(); }
   if(k === 'musicVol'){ audioUnlock(); Music.unlock(); applyVolumes(); }
   if(k === 'sfxVol'){
@@ -619,10 +818,8 @@ function beep(freq, dur, type, vol){
 
 // 程序生成的背景循环（不依赖任何外部音频文件）
 const Music = {
-  ac:null, master:null, timer:null, next:0, step:0,
-  ARP:[440,523.25,659.25,523.25, 392,523.25,659.25,880,
-       440,523.25,659.25,587.33, 349.23,440,659.25,880],
-  BASS:[110,110,87.31,87.31, 130.81,130.81,98,98],
+  ac:null, master:null, timer:null, next:0, step:0, stepLen:0.26,
+  ARP:[440,523.25], BASS:[110,110],          // 真正的值由 applySkin() 从 SKIN.music 灌进来
   ensure(){
     if(this.ac) return true;
     if(!audioInit()) return false;
@@ -651,7 +848,7 @@ const Music = {
     let guard = 0;
     while(this.next < now + 0.5 && guard++ < 24){
       this.play(this.step, this.next);
-      this.next += 0.26;
+      this.next += this.stepLen;
       this.step = (this.step + 1) % 32;
     }
   },
@@ -846,7 +1043,7 @@ function updateActor(a, mask, edge, statics, bodies, isPlayer){
   a.jumpBuf = Math.max(0, a.jumpBuf - TS);
   if(a.jumpBuf > 0 && a.coyote > 0){
     a.vy = -JUMP_V; a.jumpBuf = 0; a.coyote = 0; a.onGround = false; a.jumping = true;
-    if(isPlayer) beep(520, .07, 'square', .035);
+    if(isPlayer) sfx('jump');
   }
   if(a.jumping && !a.jumpHeld && a.vy < -170) a.vy = -170;   // 可变跳跃高度
 
@@ -878,7 +1075,7 @@ function tryGrab(a, statics){
     c.y = a.y + a.h - c.h;
     c.vx = 0; c.vy = 0;
     if(stuckAny(c, statics)){ c.x = a.x + a.w/2 - c.w/2; c.y = a.y - c.h - 3; }
-    beep(200,.06,'sine',.04);
+    sfx('land');
     return;
   }
   let best = null, bd = 1e9;
@@ -887,7 +1084,7 @@ function tryGrab(a, statics){
     const d = Math.hypot((c.x+c.w/2)-(a.x+a.w/2), (c.y+c.h/2)-(a.y+a.h/2));
     if(d < 54 && d < bd){ bd = d; best = c; }
   }
-  if(best){ best.heldBy = a; a.held = best; beep(330,.06,'sine',.04); }
+  if(best){ best.heldBy = a; a.held = best; sfx('grab'); }
 }
 function tryThrow(a){
   if(!a.held) return;
@@ -895,7 +1092,7 @@ function tryThrow(a){
   c.vx = a.facing * THROW_VX;
   c.vy = THROW_VY;
   c.thrown = true;
-  beep(660,.09,'sawtooth',.05);
+  sfx('throw');
 }
 
 function updateCrate(c, statics, bodies){
@@ -927,7 +1124,7 @@ function updateDevices(bodies){
         const d = L.doors[btn.door];
         d.btnTimer = btn.time;
         btn.hit = 1; c.thrown = false;
-        beep(880,.12,'square',.06); shake = 6;
+        sfx('hit'); shake = 6;
       }
     }
   }
@@ -947,7 +1144,7 @@ function updateDevices(bodies){
     }
     d.btnTimer = Math.max(0, d.btnTimer - TS);
     const open = d.plateOpen || d.latched || d.btnTimer > 0;
-    if(open !== d.open && !d.open) beep(440,.1,'triangle',.045);
+    if(open !== d.open && !d.open) sfx('door');
     d.open = open;
     d.anim = approach(d.anim, open?1:0, TS*4);
   }
@@ -963,14 +1160,14 @@ function startRecording(){
   tape.frames = [];                          // 重新录会覆盖旧磁带（已放出的回声不受影响）
   tape.start = { x:player.x, y:player.y, vx:player.vx, vy:player.vy, facing:player.facing };
   tape.recording = true; tape.ready = false; tape.idx = 0;
-  beep(760,.06,'square',.05);
-  flashMsg = { text:'● REC  录制中…再按 E 可提前结束', t:1.4 };
+  sfx('recStart');
+  flashMsg = { text: msg('rec'), t:1.4 };
 }
 function finishRecording(){
   if(!tape.recording) return;
   tape.recording = false; tape.ready = true;
-  beep(600,.08,'square',.05);
-  flashMsg = { text:'磁带就绪 · 按 E 回放（回声会一直留在场上）', t:1.6 };
+  sfx('recEnd');
+  flashMsg = { text: msg('ready'), t:1.6 };
 }
 function dropEcho(e){
   if(e.held){ const c = e.held; e.held = null; c.heldBy = null; c.vx = 0; c.vy = 0; }
@@ -985,8 +1182,8 @@ function playTape(){
   e.life = REC_FRAMES;                   // 磁带没录满的部分等于空白 —— 回声站着不动
   e.no = echoSeq++ % MAX_ECHO;
   echoes.push(e);
-  beep(300,.12,'sawtooth',.05);
-  flashMsg = { text:'▶ PLAY  回声 ' + echoes.length + '/' + MAX_ECHO, t:1.2 };
+  sfx('play');
+  flashMsg = { text: msg('play', { n:echoes.length, max:MAX_ECHO }), t:1.2 };
 }
 
 /* ---------------------------- 主逻辑步进 ---------------------------- */
@@ -1004,16 +1201,16 @@ function step(){
     }
     if(actHit('clear')){
       if(tapeEmpty() && echoes.length){
-        clearEchoes(); beep(150,.18,'sine',.05);
-        flashMsg = { text:'场上回声已清空', t:1.2 };
+        clearEchoes(); sfx('clearEcho');
+        flashMsg = { text: msg('clearEcho'), t:1.2 };
       } else if(tapeEmpty()){
-        flashMsg = { text:'磁带和回声都是空的', t:1.0 };
+        flashMsg = { text: msg('emptyBoth'), t:1.0 };
       } else {
-        clearTape(); beep(180,.14,'sine',.05);
-        flashMsg = { text:'磁带已倒带 · 回声保留（再按 E 可录新的一段）', t:1.6 };
+        clearTape(); sfx('rewind');
+        flashMsg = { text: msg('rewind'), t:1.6 };
       }
     }
-    if(actHit('reset')){ softReset(); beep(240,.12,'sine',.05); flashMsg = { text:'世界重置 · 磁带保留，回声清空', t:1.4 }; }
+    if(actHit('reset')){ softReset(); sfx('reset'); flashMsg = { text: msg('reset'), t:1.4 }; }
   } else {
     if(actHit('rec') || actHit('jump')){
       if(levelIdx + 1 < LEVELS.length) loadLevel(levelIdx + 1, false);
@@ -1062,7 +1259,7 @@ function step(){
   if(player.y > 700) die();
   if(overlap(player, L.exit)){
     state = 'clear'; clearT = 0;
-    beep(660,.1,'square',.06); setTimeout(()=>beep(880,.16,'square',.06),110);
+    sfx('win');
   }
 
   // 录制写帧
@@ -1085,8 +1282,8 @@ function step(){
 function die(){
   softReset();
   shake = 10;
-  beep(120,.2,'sawtooth',.06);
-  flashMsg = { text:'失败 · 回到起点（磁带保留）', t:1.4 };
+  sfx('die');
+  flashMsg = { text: msg('die'), t:1.4 };
 }
 /* ---------------------------- 渲染 ---------------------------- */
 function draw(){
@@ -1347,33 +1544,65 @@ function vignette(color){
   g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,color);
   ctx.save(); ctx.fillStyle = g; ctx.fillRect(0,0,VW,VH); ctx.restore();
 }
+/* ---- 磁带面板的位置：能停靠、也能拖 ---- */
+const TAPE_W = 306, TAPE_H = 72;
+function clamp(v, a, b){ return v < a ? a : (v > b ? b : v); }
+function tapePanelRect(){
+  const a  = (typeof settings.tapeAnchor === 'string' && settings.tapeAnchor) ? settings.tapeAnchor : 'bottom-left';
+  const ox = numOr(settings.tapeOX, 16), oy = numOr(settings.tapeOY, 16);
+  let px, py;
+  if(a === 'custom' && settings.tapeX != null && settings.tapeY != null){
+    px = numOr(settings.tapeX, 16); py = numOr(settings.tapeY, VH - TAPE_H - 16);
+  }else{
+    const isLeft = a.indexOf('left')   >= 0;
+    const isTop  = a.indexOf('top')    >= 0;
+    const isMid  = a.indexOf('center') >= 0;
+    px = isMid ? (VW - TAPE_W)/2 : (isLeft ? ox : VW - TAPE_W - ox);
+    py = isTop  ? oy : VH - TAPE_H - oy;
+  }
+  // 别让它跑出画面（改窗口大小、改关卡也不会丢）
+  px = clamp(px, 4, VW - TAPE_W - 4);
+  py = clamp(py, 4, VH - TAPE_H - 4);
+  return { px, py, pw:TAPE_W, ph:TAPE_H };
+}
 function tapeState(){
-  if(tape.recording) return { c:'#ff5c5c', s:'录制中' };
-  if(tape.ready)     return { c:'#7de3a0', s:'就绪' };
-  return { c:'#5b6478', s:'空磁带' };
+  if(tape.recording) return { c:'#ff5c5c', s:SKIN.hud.stRec };
+  if(tape.ready)     return { c:'#7de3a0', s:SKIN.hud.stReady };
+  return { c:'#5b6478', s:SKIN.hud.stEmpty };
 }
 function drawHUD(){
   ctx.save();
+  const tp = tapePanelRect();
+  // 面板要是挪到左上角，会压住关卡名 —— 那就把字放到面板下面
+  const bumped = tp.px < 330 && tp.py < 60;
+  const nameY = bumped ? tp.py + tp.ph + 18 : 26;
   ctx.font = 'bold 15px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif';
   ctx.textAlign = 'left';
   ctx.fillStyle = '#e8eef7';
-  ctx.fillText(L.name, 16, 26);
+  ctx.fillText(L.name, 16, nameY);
   ctx.font = '12px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif';
   ctx.fillStyle = '#8b9ab3';
-  ctx.fillText(L.hint, 16, 45);
+  ctx.fillText(L.hint, 16, nameY + 19);
 
-  // ---- 磁带机面板（只有一盘磁带） ----
-  const px = 16, py = VH - 88, pw = 306, ph = 72;
+  // ---- 磁带机面板（只有一盘磁带，位置可停靠/可拖） ----
+  const px = tp.px, py = tp.py, pw = tp.pw, ph = tp.ph;
   ctx.fillStyle = 'rgba(10,14,22,.82)'; rr(ctx, px, py, pw, ph, 8); ctx.fill();
-  ctx.strokeStyle = 'rgba(125,227,160,.25)'; ctx.lineWidth = 1; rr(ctx, px+.5, py+.5, pw-1, ph-1, 8); ctx.stroke();
+  ctx.strokeStyle = draggingTape ? 'rgba(125,227,160,.75)' : 'rgba(125,227,160,.25)';
+  ctx.lineWidth = draggingTape ? 2 : 1;
+  rr(ctx, px+.5, py+.5, pw-1, ph-1, 8); ctx.stroke();
+  ctx.lineWidth = 1;
+  // 右下角的小点阵 = 「这块可以拖」的把手
+  ctx.fillStyle = draggingTape ? 'rgba(125,227,160,.6)' : 'rgba(255,255,255,.18)';
+  for(let gy=0; gy<2; gy++) for(let gx=0; gx<2; gx++)
+    ctx.fillRect(px + pw - 13 + gx*4, py + ph - 13 + gy*4, 2, 2);
 
   const st = tapeState();
   ctx.font = 'bold 12px ui-sans-serif,system-ui,"PingFang SC",sans-serif';
   ctx.textAlign = 'left'; ctx.fillStyle = st.c;
-  let label = '磁带 ';
-  if(tape.recording){ if((tick>>4)%2===0) ctx.globalAlpha = .45; label += '● REC'; }
-  else if(tape.ready) label += '▶ READY';
-  else label += '○ EMPTY';
+  let label = SKIN.hud.tape + ' ';
+  if(tape.recording){ if((tick>>4)%2===0) ctx.globalAlpha = .45; label += SKIN.hud.rec; }
+  else if(tape.ready) label += SKIN.hud.ready;
+  else label += SKIN.hud.empty;
   ctx.fillText(label + '  ' + st.s, px + 11, py + 20);
   ctx.globalAlpha = 1;
 
@@ -1391,14 +1620,14 @@ function drawHUD(){
   ctx.font = '11px ui-monospace,SFMono-Regular,Menlo,monospace';
   ctx.fillStyle = '#8b9ab3'; ctx.textAlign = 'left';
   const secs = tape.recording ? ((REC_FRAMES - tape.idx)/60).toFixed(1) : (tape.frames.length/60).toFixed(1);
-  ctx.fillText((tape.recording ? '剩余 ' : '录了 ') + secs + 's', px + 11, py + 52);
-  ctx.fillText('E 录/放 · Q 倒带 · R 重来', px + 11, py + 65);
+  ctx.fillText((tape.recording ? SKIN.hud.remain : SKIN.hud.recorded) + ' ' + secs + 's', px + 11, py + 52);
+  ctx.fillText(SKIN.hud.tapeKeys, px + 11, py + 65);
 
   // 回声槽位（三个圆点）
   ctx.textAlign = 'left';
   ctx.font = 'bold 11px ui-sans-serif,system-ui,"PingFang SC",sans-serif';
   ctx.fillStyle = '#8b9ab3';
-  ctx.fillText('回声', px + pw - 96, py + 52);
+  ctx.fillText(SKIN.hud.echo, px + pw - 96, py + 52);
   for(let i=0;i<MAX_ECHO;i++){
     const dx = px + pw - 62 + i*18, dy = py + 44;
     const on = i < echoes.length;
@@ -1413,8 +1642,8 @@ function drawHUD(){
   // 按键条
   ctx.font = '11px ui-sans-serif,system-ui,"PingFang SC",sans-serif';
   ctx.textAlign = 'right'; ctx.fillStyle = '#69748a';
-  ctx.fillText('A/D 移动 · 空格 跳 · Shift 加速 · F 举起 · G 扔 · E 录/放 · Q 倒带 · R 重来 · Esc 设置', VW-16, 26);
-  ctx.fillText('关卡 ' + (levelIdx+1) + ' / ' + LEVELS.length, VW-16, 44);
+  ctx.fillText(SKIN.hud.keyBar, VW-16, 26);
+  ctx.fillText(SKIN.hud.level + ' ' + (levelIdx+1) + ' / ' + LEVELS.length, VW-16, 44);
   ctx.restore();
 }
 function drawClear(){
@@ -1423,12 +1652,54 @@ function drawClear(){
   ctx.textAlign = 'center';
   ctx.fillStyle = '#7de3a0';
   ctx.font = 'bold 34px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif';
-  ctx.fillText('关卡完成', VW/2, VH/2 - 14);
+  ctx.fillText(SKIN.clear.title, VW/2, VH/2 - 14);
   ctx.fillStyle = '#9fb0c8';
   ctx.font = '14px ui-sans-serif,system-ui,"PingFang SC","Microsoft YaHei",sans-serif';
   const last = levelIdx + 1 >= LEVELS.length;
-  ctx.fillText(last ? '你通关了全部关卡 · 按 E 从头再来' : '按 E 进入下一关', VW/2, VH/2 + 20);
+  ctx.fillText(last ? SKIN.clear.last : SKIN.clear.next, VW/2, VH/2 + 20);
   ctx.restore();
+}
+
+/* ---------------------------- 拖动磁带面板 ---------------------------- */
+// 面板画在画布上，所以拖动要自己接：把鼠标位置换算回 960×540 的逻辑坐标再判断是否落在面板里。
+let draggingTape = false, dragDX = 0, dragDY = 0, draggedTape = false;
+function canvasPos(e){
+  const r = cv.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * VW / (r.width  || VW),
+           y: (e.clientY - r.top ) * VH / (r.height || VH) };
+}
+if(cv){
+  cv.addEventListener('pointerdown', e=>{
+    const p = canvasPos(e), t = tapePanelRect();
+    if(p.x < t.px || p.x > t.px + t.pw || p.y < t.py || p.y > t.py + t.ph) return;
+    draggingTape = true; draggedTape = false;
+    dragDX = p.x - t.px; dragDY = p.y - t.py;
+    try{ cv.setPointerCapture(e.pointerId); }catch(err){}
+    e.preventDefault();
+  });
+  cv.addEventListener('pointermove', e=>{
+    if(!draggingTape){
+      const p = canvasPos(e), t = tapePanelRect();
+      const over = p.x >= t.px && p.x <= t.px + t.pw && p.y >= t.py && p.y <= t.py + t.ph;
+      try{ cv.style.cursor = over ? 'move' : ''; }catch(err){}
+      return;
+    }
+    const p = canvasPos(e);
+    const nx = clamp(p.x - dragDX, 4, VW - TAPE_W - 4);
+    const ny = clamp(p.y - dragDY, 4, VH - TAPE_H - 4);
+    if(nx !== settings.tapeX || ny !== settings.tapeY) draggedTape = true;
+    settings.tapeAnchor = 'custom'; settings.tapeX = nx; settings.tapeY = ny;
+    e.preventDefault();
+  });
+  const endDrag = ()=>{
+    if(!draggingTape) return;
+    draggingTape = false;
+    saveSettings();
+    if(draggedTape) flashMsg = { text: msg('tapeMoved'), t:1.2 };
+  };
+  cv.addEventListener('pointerup', endDrag);
+  cv.addEventListener('pointercancel', endDrag);
+  cv.addEventListener('pointerleave', endDrag);
 }
 
 /* ---------------------------- 主循环 ---------------------------- */
@@ -1447,11 +1718,17 @@ function loop(now){
 addEventListener('message', e=>{
   try{
     const d = e && e.data;
-    if(!d || d.type !== 'tape-echo:load') return;
-    const list = Array.isArray(d.levels) ? d.levels : [d.levels];
-    applyCustomLevels(list, d.index || 0, false);
+    if(!d) return;
+    if(d.type === 'tape-echo:load'){
+      const list = Array.isArray(d.levels) ? d.levels : [d.levels];
+      applyCustomLevels(list, d.index || 0, false);
+    } else if(d.type === 'tape-echo:skin'){       // 编辑器实时预览文案 / 音乐 / 音效
+      if(d.skin){ try{ mergeSkin(SKIN, d.skin); applySkin(); }catch(err){} }
+    }
   }catch(err){}
 });
+
+applySkin();
 addEventListener('hashchange', ()=>{ loadLevelsFromHash(); });
 
 refreshPadLabels();
