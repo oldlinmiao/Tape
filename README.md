@@ -6,15 +6,13 @@
 
 ---
 
-## 快速开始
+## 网站
 
 ```
-双击 tape-echo/index.html
+https://oldlinmiao.github.io/Tape/
 ```
-
-不需要安装任何东西，不需要联网。想改关卡就开 `editor.html`（见下文）。
-
-> 建议用本地服务器打开而非双击，原因见「发布指南」第二节——双击时编辑器的「写入 index.html」按钮会因浏览器安全限制而失效。
+网址发布位置：
+Settings→Code, planning, and automation（Page）→Visit site
 
 ---
 
